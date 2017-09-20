@@ -1,4 +1,3 @@
-
 // nvcc hello.cu -run && rm a.out  
 
 #include <stdio.h>
