@@ -38,10 +38,32 @@ GPU Intro
 
 * https://blogs.nvidia.com/blog/2009/12/16/whats-the-difference-between-a-cpu-and-a-gpu/
 
-CUDA Intro
------------
+
+CUDA Introductions
+--------------------
+
+An Introduction to GPU Computing and CUDA Architecture, Sarah Tariq, NVIDIA 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * http://on-demand.gputechconf.com/gtc-express/2011/presentations/GTC_Express_Sarah_Tariq_June2011.pdf
+
+
+Really Fast Introduction to CUDA and CUDA C, Dale Southard, NVIDIA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* https://www.nersc.gov/assets/Uploads/CUDAIntrosouthard.pdf
+
+
+
+
+Thrust
+----------
+
+* http://on-demand.gputechconf.com/gtc/2012/presentations/S0602-Intro-to-Thrust-Parallel-Algorithms-Library.pdf
+
+Some more advanced slides on Thrust:
+
+* http://outreach.sbel.wisc.edu/Workshops/GPUworkshop/2012-polimi/presentation-day4.pdf
 
 
 cudaMalloc : why void** ?
@@ -55,11 +77,6 @@ cudaMalloc : why void** ?
     assert(ptr != 0);
     // ptr now points to a segment of device memory
 
-
-Thrust
-----------
-
-* http://on-demand.gputechconf.com/gtc/2012/presentations/S0602-Intro-to-Thrust-Parallel-Algorithms-Library.pdf
 
 
 GTC Search for CUDA
