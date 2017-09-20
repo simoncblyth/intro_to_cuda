@@ -11,15 +11,14 @@ Hello World Examples
 ----------------------
 
 This repository contains a few very simple examples
-if using CUDA and Thrust.
+of using CUDA and Thrust.
 
 * https://bitbucket.org/simoncblyth/intro_to_cuda/src/
 
-Start by cloning the repoistory to a machine with an NVIDIA GPU::
+Start by cloning the repository to a machine with an NVIDIA GPU::
 
     which hg # Mercurial is required
-    hg clone https://simoncblyth@bitbucket.org/simoncblyth/intro_to_cuda
-
+    hg clone https://bitbucket.org/simoncblyth/intro_to_cuda
 
 Below commands compile and run hello.cu::
 
@@ -32,7 +31,6 @@ Below commands compile and run hello.cu::
     Hello World!
     Hello World (from mykernel)!
     delta:intro_to_cuda blyth$ 
-
      
 
 GPU Intro
