@@ -33,6 +33,43 @@ Below commands compile and run hello.cu::
     delta:intro_to_cuda blyth$ 
      
 
+Brief descriptions of highlighted examples
+-----------------------------------------------------
+
+hello.cu
+    simplest possible kernel 
+
+add.cu
+    pure CUDA addition
+
+inner_product.cu
+    shows how to use the generalized inner product thrust::inner_product to 
+    get the maximum difference of two thrust device vectors 
+
+printfTest.cu
+    demonstrate printf from a thrust functor, note the cudaDeviceSynchronize 
+    otherwise the process terminates before any output from kernel gets pumped
+    to the terminal
+
+thrust_sort.cu
+    sorting 32M random integers on device 
+
+thrust_curand_estimate_pi.cu
+    use monte carlo method to estimate pi using thrust::tranform_reduce with 
+    a functor with operator method that runs on device
+
+texture/demoTex.cu
+    simple sample code using a GPU texture from CUDA, Thrust is used 
+    a little to avoid CUDA boilerplate code
+
+texture/demoTex2.cu
+    enhance the demoTex.cu example, putting the results of the texture lookups
+    into a buffer and using that to compare texture lookup results with expectations.
+    A generalized thrus::inner_product is used to find the maximum difference
+    between results and expectations.
+
+
+
 GPU Intro
 ----------
 
@@ -61,6 +98,10 @@ Thrust
 
 * http://on-demand.gputechconf.com/gtc/2012/presentations/S0602-Intro-to-Thrust-Parallel-Algorithms-Library.pdf
 
+  Including rainfall worked example, that uses struct-of-arrays (not array-of-structs), which get
+  tied together using tuples and zip iterators.
+
+
 Some more advanced slides on Thrust:
 
 * http://outreach.sbel.wisc.edu/Workshops/GPUworkshop/2012-polimi/presentation-day4.pdf
@@ -78,11 +119,82 @@ cudaMalloc : why void** ?
     // ptr now points to a segment of device memory
 
 
+Thrust API Documentation
+--------------------------
+
+* http://thrust.github.io
+* http://thrust.github.io/doc/modules.html
+
+
+
+Most Thrust Intros
+--------------------
+
+* http://on-demand.gputechconf.com/gtc/2010/presentations/S12219-High-Productivity-CUDA-Development-Thrust-Template-Library.pdf
+
+  Includes a sorting float2 vertices example, for handling triangle soup 
+
+
+* http://on-demand.gputechconf.com/gtc/2010/presentations/S12220-Thrust-By-Example-Advanced-Features-Techniques.pdf
+
+  * Fusion using transform_iterator, avoiding intermediate result 
+  * better to use transform_reduce rather than separate transform then reduce 
+  * structure-of-arrays "soa" better coalesced memory access
+  * zip_iterator and tuple gives conceptual goodness of array-of-structs "aos" but performance of struct-of-arrays "soa" 
+  * 2d bucket sort example
+
+
+* http://on-demand.gputechconf.com/supercomputing/2012/presentation/SB035-Bradley-Thrust-Parallel-Algorithms-Library.pdf
+
+
+
+
+
+Advanced CUDA References
+--------------------------
+
+* http://on-demand.gputechconf.com/gtc/2013/presentations/S3049-Getting-Started-CUUA-C-PlusPlus.pdf
+
+* http://on-demand.gputechconf.com/gtc/2010/presentations/S12084-State-of-Art-GPU-Data-Parallel-Algorithm-Primitives.pdf
+
+
+
+Advanced Thrust References
+---------------------------
+
+* http://www.mariomulansky.de/data/uploads/cuda_thrust.pdf
+
+* https://www.nvidia.com/docs/IO/116711/sc11-montecarlo.pdf
+
+
+* http://on-demand.gputechconf.com/gtc/2015/presentation/S5338-Bharatkumar-Sharma.pdf
+
+  Thrust++ using thrust in medical imaging 
+
+* http://on-demand.gputechconf.com/gtc/2016/presentation/s6431-steven-dalton-advanced-thrust-programming.pdf
+
+  Thrust execution policy 
+
+* http://www.bu.edu/pasi/files/2011/07/Lecture6.pdf
+
+
+
+
 
 GTC Search for CUDA
 ------------------------
 
-* http://on-demand-gtc.gputechconf.com/gtcnew/on-demand-gtc.php?searchByKeyword=CUDA&searchItems=&sessionTopic=&sessionEvent=&sessionYear=&sessionFormat=&submit=&select=
+* https://on-demand-gtc.gputechconf.com/gtcnew/on-demand-gtc.php?searchByKeyword=Thrust%20&searchItems=&sessionTopic=&sessionEvent=&sessionYear=&sessionFormat=&submit=&select=
+
+
+Alternatives to Thrust 
+-------------------------
+
+* http://nvlabs.github.io/cub/
+
+* https://moderngpu.github.io/intro.html
+
+
 
 
 
