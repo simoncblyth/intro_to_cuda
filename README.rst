@@ -7,6 +7,15 @@ CUDA Documentation/Download
 
 * http://docs.nvidia.com/cuda/index.html
 
+See Also
+----------
+
+* https://bitbucket.org/simoncblyth/intro_to_numpy/
+
+  NumPy and the NPY file format are exceedingly useful for transporting/persisting 
+  GPU inputs and outputs, making learning NumPy go together naturally with learning CUDA and Thrust 
+
+
 Hello World Examples
 ----------------------
 
@@ -67,6 +76,54 @@ texture/demoTex2.cu
     into a buffer and using that to compare texture lookup results with expectations.
     A generalized thrus::inner_product is used to find the maximum difference
     between results and expectations.
+
+reduce.cu
+    thrust::reduce adding all values in a sequence on GPU 
+
+upload_to_device_vector.cu
+    load values from .npy file using NP.hh from https://github.com/simoncblyth/np 
+    cudaMemcpy from host to device, thrust::reduce on device
+  
+upload_to_device_vector_with_host_vector.cu
+    varation using thrust::host_vector to avoid the cudaMemcpy and tricky pointer casting
+
+upload_to_device_vector_with_host_vector_strided.cu
+    use strided_range.h to to split xyz data on host into separate x,y,z on device :
+    many sources suggest that this structure-of-array form performs better than
+    array-of-structs due to more coalesced memory access between the parallel threads 
+    
+
+Extended GPU NLL Example 
+----------------------------
+
+This example uses npy files written by 
+
+* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
+
+
+Geo.hh
+    separate x,y,z buffers for better memory coalesed access
+Tim.hh
+    time buffer 
+Par.hh
+    parameter buffer 
+Rec.hh
+    NLL evaluation using the above buffers 
+
+GeoTest.cu
+TimTest.cu
+ParTest.cu
+    testing header functionality, loading the data, uploading to GPU and dumping
+
+RecTest.cu
+    pulling together all the buffers to do some NLL evaluations
+
+
+Notice the structure of putting the implementation into headers, and building up 
+functionality by adding headers.  This works well with the nvcc compiler 
+as it gets to see all the code for the kernel at once when compiling the tests, 
+which in principal allows it to make more optimizations that by seeing individual
+compilation units for linking together, which in anycase doesnt work very well. 
 
 
 
@@ -164,8 +221,16 @@ Advanced Thrust References
 
 * http://www.mariomulansky.de/data/uploads/cuda_thrust.pdf
 
+  * make_transform_iterator
+  * make_zip_iterator
+  * make_tuple
+  * for_each
+  * Numerical Integration of an ODE, writing into a tuple from the functor
+  * make_permutation_iterator
+
 * https://www.nvidia.com/docs/IO/116711/sc11-montecarlo.pdf
 
+  * estimate pi without using a functor, using thrust::count 
 
 * http://on-demand.gputechconf.com/gtc/2015/presentation/S5338-Bharatkumar-Sharma.pdf
 
@@ -177,7 +242,9 @@ Advanced Thrust References
 
 * http://www.bu.edu/pasi/files/2011/07/Lecture6.pdf
 
-
+  * covers iterators in depth
+  * fusion using transform_reduce
+  * rotate 3d vectors stored as struct-of-arrays using zip_iterator and tuples
 
 
 
