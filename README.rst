@@ -1,7 +1,6 @@
 Introduction To CUDA
 =======================
 
-
 CUDA Documentation/Download
 -----------------------------
 
@@ -96,11 +95,6 @@ upload_to_device_vector_with_host_vector_strided.cu
 Extended GPU NLL Example 
 ----------------------------
 
-This example uses npy files written by 
-
-* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
-
-
 Geo.hh
     separate x,y,z buffers for better memory coalesed access
 Tim.hh
@@ -110,21 +104,26 @@ Par.hh
 Rec.hh
     NLL evaluation using the above buffers 
 
-GeoTest.cu
-TimTest.cu
-ParTest.cu
+GeoTest.cu TimTest.cu ParTest.cu
     testing header functionality, loading the data, uploading to GPU and dumping
 
 RecTest.cu
     pulling together all the buffers to do some NLL evaluations
 
 
-Notice the structure of putting the implementation into headers, and building up 
-functionality by adding headers.  This works well with the nvcc compiler 
+This example uses npy files written by
+
+* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
+
+
+Code structure for nvcc
+------------------------
+
+Note the structure used in the NLL example of putting the implementation into headers, 
+and building up functionality by adding headers.  This works well with the nvcc compiler 
 as it gets to see all the code for the kernel at once when compiling the tests, 
 which in principal allows it to make more optimizations that by seeing individual
 compilation units for linking together, which in anycase doesnt work very well. 
-
 
 
 GPU Intro
