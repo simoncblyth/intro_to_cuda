@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 set(name useIMinuit2)
 project(${name} VERSION 0.1.0 LANGUAGES CXX )  
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
+include(IntroBuildOptions)
 
 set(IMinuit2_VERBOSE ON)
 find_package(IMinuit2 REQUIRED MODULE)

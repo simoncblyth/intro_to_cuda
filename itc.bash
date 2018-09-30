@@ -85,8 +85,11 @@ itc-make()
    local bdir=$(itc-bdir $sdir)
    cd $bdir
 
-   make VERBOSE=1
-   make install VERBOSE=1  
+   #export VERBOSE=1 ; 
+   unset VERBOSE 
+
+   make 
+   make install 
 
    cd $sdir
 }

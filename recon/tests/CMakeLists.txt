@@ -2,14 +2,20 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 set(name ReconTest)
 
 project(${name} VERSION 0.1.0 LANGUAGES CXX )  
-#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+include(IntroBuildOptions)
 
 
+# skip these tests, as can be built simply from command line 
+#[=[
 set(TEST_CU
     TimTest.cu
     GeoTest.cu
     ParTest.cu
     RecTest.cu
+)
+#]=]
+
+set(TEST_CU
 )
 
 set(TEST_CC

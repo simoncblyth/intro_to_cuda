@@ -2,10 +2,8 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 set(name Recon)
 
 project(${name} VERSION 0.1.0 LANGUAGES CXX )  
-include(GNUInstallDirs)
 
-find_package(BCM)
-include(BCMDeploy)
+include(IntroBuildOptions)
 
 find_package(CUDA REQUIRED MODULE)
 
@@ -20,8 +18,7 @@ target_include_directories( ${name} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOU
 
 install(TARGETS ${name}     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS}            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+bcm_deploy(TARGETS ${name} NAMESPACE IntroToCUDA:: SKIP_HEADER_INSTALL)
 
 add_subdirectory(tests)
-
-bcm_deploy(TARGETS ${name} NAMESPACE IntroToCUDA:: SKIP_HEADER_INSTALL)
 

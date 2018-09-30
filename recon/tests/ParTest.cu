@@ -1,7 +1,8 @@
-//  nvcc -I.. ParTest.cu && ./a.out && rm a.out 
+//  nvcc -I.. ParTest.cu -std=c++11 && ./a.out && rm a.out
 
 #include "NP.hh"
 #include "Par.hh"
+#include <iomanip>
 
 /**
 ParTest.cu
@@ -11,17 +12,27 @@ ParTest.cu
 
 int main(int argc, char** argv)
 {
-    typedef double FP ;  // type must match that of the .npy file
+    const char* dir = argc > 1 ? argv[1] : "/tmp/recon" ; 
+    NP<double>* p = NP<double>::Load(dir, "parTru.npy") ;  
+    NP<unsigned char>* l = NP<unsigned char>::Load(dir, "parLab.npy") ;  
+    if( p == NULL || l == NULL ) return 1 ; 
 
-    const char* path = argc > 1 ? argv[1] : "/tmp/recon/parTru.npy" ; 
-    NP<FP>* p = NP<FP>::Load(path) ;  
-    if( p == NULL ) return 1 ; 
+    Par<double> param(p, l);  
+    param.dump(); 
 
-    Par<FP> par(p);  
-    par.dump(); 
+    param.set( { 1., 2., 3. , 4. } ); 
+    param.dump(); 
 
-    par.set_param( 1., 2., 3. , 4. ); 
-    par.dump(); 
+    const std::vector<double>& par = param.get() ; 
+
+    for( unsigned i=0 ; i < par.size() ; i++ ) 
+         std::cout 
+             << std::setw(2) << i 
+             << " : " 
+             << std::fixed << par[i]
+             << std::endl 
+             ;
+
 
     return 0 ; 
 }

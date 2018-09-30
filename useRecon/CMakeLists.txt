@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 set(name useRecon)
 project(${name} VERSION 0.1.0 LANGUAGES CXX )  
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+include(IntroBuildOptions)
 
 find_package(Recon REQUIRED CONFIG)
 

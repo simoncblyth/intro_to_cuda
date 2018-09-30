@@ -1,5 +1,3 @@
-// copied in from https://github.com/simoncblyth/np
-
 #include <iostream>
 #include <string>
 #include <vector>

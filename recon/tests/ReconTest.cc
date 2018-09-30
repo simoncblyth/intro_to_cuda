@@ -1,19 +1,21 @@
-// clang ReconTest.cc -I$PWD
+// clang -I.. ReconTest.cc -std=c++11 -lc++ 
+// NOPE: need to use a proper build for this one
 
-#include "Recon.hh"
+#include <initializer_list>
 #include <iostream>
+#include "Recon.hh"
 
 int main(int argc, char** argv)
 {
-    typedef double FP ;  // type must match that of the .npy files
-
     const char* dir = argc > 1 ? argv[1] : "/tmp/recon" ; 
 
-    Recon<FP> recon(dir) ; 
+    Recon<double> recon(dir) ; 
 
-    FP nll = recon.nll(0,0,0,1); 
-
-    std::cout << "nll " << nll << std::endl ; 
+    for( double z=-10. ; z< 11. ; z+= 1. )
+    { 
+        double nll = recon.nll( {0,0,z,1.} ); 
+        std::cout << recon.desc() << std::endl ; 
+    }
 
     return 0 ; 
 }

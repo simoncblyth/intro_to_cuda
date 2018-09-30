@@ -17,11 +17,7 @@ struct FCN : public FCNBase
 
     double operator()(const std::vector<double>& par) const 
     {
-        double x = par[0];
-        double y = par[1];
-        double z = par[2];
-        double s = par[3];
-        return recon->nll(x,y,z,s); 
+        return recon->nll(par); 
     }
     double Up() const { return 0.5 ; }
 };
@@ -41,10 +37,12 @@ int main(int argc, char** argv)
 
     MnUserParameters upar;
 
-    upar.Add("x", 0., 0.1); 
-    upar.Add("y", 0., 0.1); 
-    upar.Add("z", 0., 0.1); 
-    upar.Add("s", 1., 0.1); 
+    const std::vector<double>& par = recon->get_param(); 
+    const std::vector<std::string>& lab = recon->get_label(); 
+    assert( par.size() == lab.size() ) ;  
+
+    for( unsigned i=0 ; i < par.size() ; i++)  upar.Add( lab[i].c_str(), par[i], 0.1 ) ;   // TODO: pass the err from recon  
+   
 
     MnMigrad migrad(fcn, upar);
 
