@@ -14,6 +14,7 @@ ibcm-url(){ echo http://github.com/simoncblyth/bcm.git ; }
 
 ibcm-base(){ echo $(itc-prefix)/externals/ibcm ; }
 ibcm-prefix(){ echo $(itc-prefix)/externals ; }
+
 ibcm-dir(){  echo $(ibcm-base)/bcm ; }
 ibcm-bdir(){  echo $(ibcm-base)/bcm.build ; }
 ibcm-bcd(){ cd $(ibcm-bdir) ; }

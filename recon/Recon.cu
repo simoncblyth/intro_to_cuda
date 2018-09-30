@@ -1,7 +1,5 @@
-
 #include "Recon.hh"
 #include "Rec.hh"
-
 
 template<typename T>
 Recon<T>::Recon( const char* dir )

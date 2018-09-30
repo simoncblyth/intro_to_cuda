@@ -7,7 +7,6 @@ include(GNUInstallDirs)
 find_package(BCM)
 include(BCMDeploy)
 
-
 find_package(CUDA REQUIRED MODULE)
 
 set(SOURCES Recon.cu)
@@ -16,15 +15,13 @@ set(HEADERS Recon.hh)
 CUDA_ADD_LIBRARY(${name} SHARED ${SOURCES})
 target_include_directories( ${name} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> )
 
-message(STATUS "CUDA_LIBRARIES:${CUDA_LIBRARIES}") 
-message(STATUS "CMAKE_INSTALL_LIBDIR:${CMAKE_INSTALL_LIBDIR}") 
+#message(STATUS "CUDA_LIBRARIES:${CUDA_LIBRARIES}") 
+#message(STATUS "CMAKE_INSTALL_LIBDIR:${CMAKE_INSTALL_LIBDIR}") 
 
 install(TARGETS ${name}     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS}            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 add_subdirectory(tests)
 
-
 bcm_deploy(TARGETS ${name} NAMESPACE IntroToCUDA:: SKIP_HEADER_INSTALL)
-
 

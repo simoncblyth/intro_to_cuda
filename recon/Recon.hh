@@ -5,7 +5,7 @@ Recon.hh interface header
 =========================
 
 This header exists to hide the CUDA implementation, enabling 
-usage from code compiled by clang/gcc.
+usage from code compiled by clang/gcc (ie not nvcc).
 
 **/
 

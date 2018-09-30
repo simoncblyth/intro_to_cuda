@@ -53,6 +53,7 @@ struct NLL
 template<typename T>
 struct Rec
 {
+    const char* dir ; 
     NP<T>* t ; 
     NP<T>* sph ; 
     NP<T>* p ; 
@@ -62,16 +63,19 @@ struct Rec
     Par<T>* par ;  
     NLL<T>* nll ; 
 
-    Rec(const char* dir); 
+    Rec(const char* dir_); 
 
     void set_param(T p0, T p1, T p2, T p3);
+    void save_param(const char* name="parFit.npy") ; 
+
     void sums(); 
     T nll_();  
 };
 
 template<typename T>
-Rec<T>::Rec(const char* dir)  
+Rec<T>::Rec(const char* dir_)  
     :
+    dir(strdup(dir_)),
     t(NP<T>::Load(dir, "t.npy")), 
     sph(NP<T>::Load(dir, "sph.npy")),
     p(NP<T>::Load(dir,"parTru.npy")),
@@ -90,6 +94,13 @@ void Rec<T>::set_param(T p0, T p1, T p2, T p3)
 {
     par->set_param(p0,p1,p2,p3);
 }
+
+template <typename T>
+void Rec<T>::save_param(const char* name)
+{
+    par->save_param(name);
+}
+
 
 template<typename T>
 void Rec<T>::sums()

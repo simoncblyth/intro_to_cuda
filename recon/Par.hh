@@ -49,6 +49,9 @@ Par<T>::Par(NP<T>* p_)
 {
 }
 
+
+// TODO: generalize the number of parameters 
+
 template <typename T>
 void Par<T>::set_param(T p0, T p1, T p2, T p3)
 {
@@ -57,6 +60,20 @@ void Par<T>::set_param(T p0, T p1, T p2, T p3)
     d_p[2] = p2 ;
     d_p[3] = p3 ;
 }
+
+
+template <typename T>
+void Par<T>::save_param(const char* name)
+{
+    T p0 = d_p[0] ; 
+    T p1 = d_p[1] ; 
+    T p2 = d_p[2] ; 
+    T p3 = d_p[3] ; 
+
+}
+
+
+
 
 template <typename T>
 void Par<T>::dump()

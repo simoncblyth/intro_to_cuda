@@ -30,6 +30,13 @@ itc-info(){ cat << EOI
 EOI
 }
 
+itc-banner()
+{
+   local msg=${1:-$FUNCNAME}
+   local sdir=$(pwd)
+   local bdir=$(itc-bdir $sdir)
+   printf "%20s : sdir %-50s        bdir %-50s  \n" $msg $sdir $bdir
+}
 
 itc-externals(){  cat << EOX
 ibcm
@@ -44,9 +51,17 @@ itc-bdir()
    echo $bdir
 }
 
+itc-bwipe()
+{
+   itc-banner $FUNCNAME
+   local sdir=$(pwd)
+   local bdir=$(itc-bdir $sdir)
+   rm -rf $bdir   
+}
 
 itc-cmake()
 {
+   itc-banner $FUNCNAME
    local sdir=$(pwd)
    local bdir=$(itc-bdir $sdir)
    local idir=$(itc-prefix)
@@ -57,13 +72,15 @@ itc-cmake()
    cmake $sdir \
          -DCMAKE_BUILD_TYPE=Debug \
          -DCMAKE_PREFIX_PATH=$(itc-prefix)/externals \
-         -DCMAKE_INSTALL_PREFIX=$idir 
+         -DCMAKE_INSTALL_PREFIX=$idir \
+         -DCMAKE_MODULE_PATH=$(itc-home)/cmake/Modules 
 
    cd $sdir && pwd
 }
 
 itc-make()
 {
+   itc-banner $FUNCNAME
    local sdir=$(pwd)   
    local bdir=$(itc-bdir $sdir)
    cd $bdir
@@ -75,7 +92,9 @@ itc-make()
 }
 
 
-ibcm-(){  . $(itc-home)/ibcm.bash && ibcm-env ; }
+# installers for externals 
+ibcm-(){      . $(itc-home)/ibcm.bash && ibcm-env ; }
+iminuit2-(){  . $(itc-home)/iminuit2.bash && iminuit2-env ; }
 
 
 

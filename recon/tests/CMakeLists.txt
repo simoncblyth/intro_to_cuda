@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 set(name ReconTest)
 
 project(${name} VERSION 0.1.0 LANGUAGES CXX )  
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 
 set(TEST_CU
     TimTest.cu
