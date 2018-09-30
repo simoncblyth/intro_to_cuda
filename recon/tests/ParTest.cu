@@ -1,4 +1,4 @@
-//  nvcc -I$HOME/np ParTest.cu && ./a.out && rm a.out 
+//  nvcc -I.. ParTest.cu && ./a.out && rm a.out 
 
 #include "NP.hh"
 #include "Par.hh"

@@ -64,6 +64,7 @@ struct Rec
 
     Rec(const char* dir); 
 
+    void set_param(T p0, T p1, T p2, T p3);
     void sums(); 
     T nll_();  
 };
@@ -83,6 +84,12 @@ Rec<T>::Rec(const char* dir)
     sph->dump(0,10); 
     assert( t->num_values() == sph->num_values()/3 ) ; 
 } 
+
+template <typename T>
+void Rec<T>::set_param(T p0, T p1, T p2, T p3)
+{
+    par->set_param(p0,p1,p2,p3);
+}
 
 template<typename T>
 void Rec<T>::sums()

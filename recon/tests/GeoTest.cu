@@ -1,4 +1,4 @@
-//  nvcc -I$HOME/np GeoTest.cu && ./a.out && rm a.out 
+//  nvcc -I.. GeoTest.cu && ./a.out && rm a.out 
 
 #include "NP.hh"
 #include "Geo.hh"

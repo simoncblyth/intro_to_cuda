@@ -1,4 +1,4 @@
-//  nvcc -I$HOME/np TimTest.cu && ./a.out && rm a.out 
+//  nvcc -I.. TimTest.cu && ./a.out && rm a.out 
 
 #include "NP.hh"
 #include "Tim.hh"

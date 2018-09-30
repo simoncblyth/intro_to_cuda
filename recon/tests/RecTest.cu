@@ -1,4 +1,4 @@
-// nvcc -I$HOME/np RecTest.cu && ./a.out && rm a.out 
+// nvcc -I.. RecTest.cu && ./a.out && rm a.out 
 
 #include "Rec.hh"
 
@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     FP nll = rec.nll_();  
     std::cout << "nll " << nll << std::endl ; 
 
-    rec.par->set_param( 0,0,0,1 );  
+    rec.set_param( 0,0,0,1 );  
     std::cout << "nll(0,0,0,1) " << rec.nll_() << std::endl ; 
 
 
