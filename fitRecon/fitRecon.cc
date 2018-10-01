@@ -1,15 +1,16 @@
 /**
-itc-
-iminuit2-
+Normally built using CMake generated Makefile, but can also build and run with commandline::
 
-clang -std=c++11 \
-       -I$(itc-prefix)/include \
-       -I$(iminuit2-prefix)/include \
-       -L$(itc-prefix)/lib -lRecon \
-       -L$(iminuit2-prefix)/lib -lMinuit2 \
-       -lc++ \
-       -Wl,-rpath $(itc-prefix)/lib \
-       fitRecon.cc && ./a.out && rm a.out
+    itc- ; iminuit2- ; \
+            clang -std=c++11 -lc++ \
+           -I$(itc-prefix)/include \
+           -I$(iminuit2-prefix)/include \
+           -L$(itc-prefix)/lib -lRecon \
+           -L$(iminuit2-prefix)/lib -lMinuit2 \
+           -Wl,-rpath $(itc-prefix)/lib \
+           fitRecon.cc && ./a.out && rm a.out
+
+On Linux replace the clang line with "gcc -std=c++11 -lstdc++" 
 
 **/
 
