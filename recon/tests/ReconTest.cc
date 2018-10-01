@@ -1,5 +1,9 @@
-// clang -I.. ReconTest.cc -std=c++11 -lc++ 
-// NOPE: need to use a proper build for this one
+/**
+
+itc-
+clang -I$(itc-prefix)/include -std=c++11 -L$(itc-prefix)/lib -lRecon -lc++ -Wl,-rpath $(itc-prefix)/lib ReconTest.cc && ./a.out && rm a.out
+
+**/
 
 #include <initializer_list>
 #include <iostream>

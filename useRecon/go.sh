@@ -12,3 +12,7 @@ if [ "$(uname)" == "Darwin" ]; then
 fi 
 
 
+$(itc-prefix)/lib/useRecon
+
+
+

@@ -11,13 +11,11 @@ TimTest.cu
 
 int main(int argc, char** argv)
 {
-    typedef double FP ;  // type must match that of the .npy file
-
-    const char* path = argc > 1 ? argv[1] : "/tmp/recon/t.npy" ; 
-    NP<FP>* t = NP<FP>::Load(path) ;  
+    const char* dir = argc > 1 ? argv[1] : "/tmp/recon" ; 
+    NP<double>* t = NP<double>::Load(dir, "t.npy") ;  
     if( t == NULL ) return 1 ; 
 
-    Tim<FP> tim(t);  
+    Tim<double> tim(t);  
     tim.sums(); 
     tim.dump(); 
 

@@ -2,55 +2,12 @@
 
 #include <thrust/device_vector.h>
 #include <thrust/iterator/counting_iterator.h>
-#include <math_constants.h>
 
 #include "NP.hh"
 #include "Tim.hh"
 #include "Geo.hh"
 #include "Par.hh"
-
-template<typename T>
-struct NLL
-{
-    T* xx ; 
-    T* yy ; 
-    T* zz ; 
-    T* tt ; 
-
-    T* pp ;   
-
-    NLL( T* x_, T* y_, T* z_, T* t_, T* p_ ) : xx(x_), yy(y_), zz(z_), tt(t_), pp(p_) {}  
-
-
-    __device__
-    T normlogpdf( T x, T mu, T sg) 
-    {
-        return -(x-mu)*(x-mu)*0.5/(sg*sg) - 0.5*logf(2.*CUDART_PI*sg*sg) ;         
-    }
-
-    __device__
-    T operator()(int i)
-    {
-        T t = tt[i] ;
-
-        T x = xx[i] ; 
-        T y = yy[i] ; 
-        T z = zz[i] ; 
-
-        // assuming parTru.npy  has 4 param
-        T px = pp[0] ; 
-        T py = pp[1] ; 
-        T pz = pp[2] ; 
-        T psigma = pp[3] ;   
-
-        T d = sqrt( (x-px)*(x-px) + (y-py)*(y-py) + (z-pz)*(z-pz) ) ;   
-        T nlp = normlogpdf(t, d, psigma) ; 
- 
-        //printf("NLL %i (%f) (%f,%f,%f)  (%f,%f,%f,%f) d:%f nlp:%f \n", i, t, x,y,z, px,py,pz,psigma, d, nlp );
-
-        return nlp  ;
-    }
-};
+#include "NLL.hh"
 
 template<typename T>
 struct Rec
@@ -152,7 +109,7 @@ std::string Rec<T>::desc() const
 template <typename T>
 void Rec<T>::save_param(const char* name)
 {
-    par->save_param(name);
+    par->save(dir, name);
 }
 
 template<typename T>

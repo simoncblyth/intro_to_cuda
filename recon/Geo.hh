@@ -4,6 +4,17 @@
 #include <thrust/device_vector.h>
 #include <thrust/reduce.h>
 
+/**
+Geo.hh
+--------
+
+Converts array-of-structs xyz coordinates into 
+structure-of-arrays x,y,z as it uploads to the GPU using Thrust, 
+the result is separate GPU buffers for x, y and z 
+which is the recommended form to allow fast coalesced 
+simultaneous memory access across parallel threads.
+
+**/
 
 template<typename T>
 struct GeoDump

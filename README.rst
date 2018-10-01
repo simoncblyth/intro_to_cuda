@@ -41,7 +41,7 @@ Below commands compile and run hello.cu::
     delta:intro_to_cuda blyth$ 
      
 
-Brief descriptions of highlighted examples
+Brief descriptions of simple examples
 -----------------------------------------------------
 
 hello.cu
@@ -92,38 +92,40 @@ upload_to_device_vector_with_host_vector_strided.cu
     array-of-structs due to more coalesced memory access between the parallel threads 
     
 
-Extended GPU NLL Example 
-----------------------------
+Extended Example : Minuit2 Fitting of GPU evaluated Log Likelihood
+----------------------------------------------------------------------------------
 
-Geo.hh
-    separate x,y,z buffers for better memory coalesed access
-Tim.hh
-    time buffer 
-Par.hh
-    parameter buffer 
-Rec.hh
-    NLL evaluation using the above buffers 
+The example is structured as several separate CMake configured projects.
+Globally relevant files and directories are described here, for further details 
+see the README.rst within the directories.
 
-GeoTest.cu TimTest.cu ParTest.cu
-    testing header functionality, loading the data, uploading to GPU and dumping
+itc.bash
+    top level control bash script
 
-RecTest.cu
-    pulling together all the buffers to do some NLL evaluations
+iminuit2.bash
+    Minuit2 downloader and installer
+
+ibcm.bash
+    BCM (boost cmake modules) downloader and installer
+
+cmake/Modules
+    infrastructure : build options, flags and FindIMinuit2.cmake
+
+recon
+    code for the nvcc compiled and linked libRecon
+    providind GPU NLL evaluation, implemented using CUDA Thrust.
+    See recon/README.rst for details
+    
+useRecon
+    clang/gcc compiled minimal usage of libRecon via Recon.hh
+
+useIMinuit2
+    minimal usage of Minuit2 external 
+
+fitRecon
+    brings together Minuit2 fitter with libRecon NLL on GPU  
 
 
-This example uses npy files written by
-
-* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
-
-
-Code structure for nvcc
-------------------------
-
-Note the structure used in the NLL example of putting the implementation into headers, 
-and building up functionality by adding headers.  This works well with the nvcc compiler 
-as it gets to see all the code for the kernel at once when compiling the tests, 
-which in principal allows it to make more optimizations that by seeing individual
-compilation units for linking together, which in anycase doesnt work very well. 
 
 
 GPU Intro

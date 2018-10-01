@@ -1,3 +1,18 @@
+/**
+itc-
+iminuit2-
+
+clang -std=c++11 \
+       -I$(itc-prefix)/include \
+       -I$(iminuit2-prefix)/include \
+       -L$(itc-prefix)/lib -lRecon \
+       -L$(iminuit2-prefix)/lib -lMinuit2 \
+       -lc++ \
+       -Wl,-rpath $(itc-prefix)/lib \
+       fitRecon.cc && ./a.out && rm a.out
+
+**/
+
 #include <iostream>
 #include "Recon.hh"
 

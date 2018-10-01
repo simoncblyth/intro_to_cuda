@@ -20,8 +20,6 @@ struct TimDump
 };
 
 
-
-
 template <typename T>
 struct Tim
 {
@@ -68,9 +66,6 @@ void Tim<T>::dump()
           func 
       ) ; 
 }
-
-
-
 
 
 

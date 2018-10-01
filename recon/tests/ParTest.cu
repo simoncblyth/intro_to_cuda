@@ -23,6 +23,10 @@ int main(int argc, char** argv)
     param.set( { 1., 2., 3. , 4. } ); 
     param.dump(); 
 
+    param.save(dir, "parTest.npy") ; 
+    // python3 -c "import numpy as np ; print(np.load('/tmp/recon/parTest.npy'))" 
+
+
     const std::vector<double>& par = param.get() ; 
 
     for( unsigned i=0 ; i < par.size() ; i++ ) 

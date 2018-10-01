@@ -14,6 +14,24 @@ Hookup to your bash shell with::
   itc-(){  . $HOME/intro_to_cuda/itc.bash && itc-env ; } 
 
 
+itc-bdir
+    emit to stdout the build dir based on current directory
+itc-sdir
+    emit to stdout the source dir based on current directory
+itc-bcd
+    change to build dir
+itc-scd
+    change to source dir
+itc-info
+    show bdir and sdir
+itc-cmake
+    configure the project in current source directory 
+itc-make
+    make and install the project in current source directory 
+
+
+
+
 EOU
 }
 
@@ -46,10 +64,21 @@ EOX
 
 itc-bdir()
 {
-   local sdir=${1:-$(pwd)}
-   local bdir=$(itc-prefix)/build/$(basename $sdir)
+   local cdir=${1:-$(pwd)}
+   cdir=${cdir/tests}
+   local bdir=$(itc-prefix)/build/$(basename $cdir)
    echo $bdir
 }
+itc-sdir()
+{
+   local cdir=${1:-$(pwd)}
+   cdir=${cdir/tests}
+   local sdir=$(itc-home)/$(basename $cdir)
+   echo $sdir
+}
+itc-bcd(){ cd $(itc-bdir) ; pwd ; }
+itc-scd(){ cd $(itc-sdir) ; pwd ; }
+
 
 itc-bwipe()
 {
@@ -66,7 +95,6 @@ itc-cmake()
    local bdir=$(itc-bdir $sdir)
    local idir=$(itc-prefix)
 
-   #rm -rf $bdir 
    mkdir -p $bdir && cd $bdir && pwd 
 
    cmake $sdir \
@@ -86,7 +114,7 @@ itc-make()
    cd $bdir
 
    #export VERBOSE=1 ; 
-   unset VERBOSE 
+   #unset VERBOSE 
 
    make 
    make install 

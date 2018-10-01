@@ -1,3 +1,10 @@
+/**
+Normally built using CMake machinery can be built from commandline::
+
+   itc-
+   clang -I$(itc-prefix)/include -std=c++11 -L$(itc-prefix)/lib -lRecon -lc++ -Wl,-rpath $(itc-prefix)/lib useRecon.cc && ./a.out && rm a.out
+
+**/
 
 #include "Recon.hh"
 #include <iostream>

@@ -51,6 +51,7 @@ struct Par
 
     void sums(); 
     void dump(); 
+    void save(const char* dir, const char* name) const ;  
 };
 
 template <typename T>
@@ -88,12 +89,12 @@ void Par<T>::set(std::initializer_list<T> ini )
 template <typename T>
 void Par<T>::set(const std::vector<T>& par )
 {
-    // hmm : how to avoid so many copies of the parameters ?
+    // hmm : perhaps can avoid so many copies of the parameters, removing h_p ?
     // perhaps can avoid h_p ??
     assert( par.size() == npar );  
     p->data.assign( par.begin(), par.end() ); 
     h_p.assign( par.begin(), par.end() ) ; 
-    d_p = h_p ; 
+    d_p = h_p ;    // copies to GPU
 }
 
 
@@ -108,8 +109,6 @@ const std::vector<std::string>& Par<T>::labels() const
 {
     return labs ; 
 }
-
-
 
 
 template <typename T>
@@ -135,4 +134,10 @@ void Par<T>::dump()
     std::cout << desc() << std::endl ; 
 }
 
+
+template <typename T>
+void Par<T>::save(const char* dir, const char* name) const 
+{
+    p->save(dir, name) ; 
+}
 
