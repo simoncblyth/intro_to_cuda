@@ -13,6 +13,11 @@ values and labels are loaded from files written by
 
 * https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
 
+To run `recon.py` you will need to install at least NumPy and preferably 
+also SciPy, IPython and MatPlotLib as instructed at 
+
+* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/
+
 
 Installation and Building 
 ---------------------------

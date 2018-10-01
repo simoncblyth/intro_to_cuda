@@ -97,7 +97,7 @@ Extended Example : Minuit2 Fitting of GPU evaluated Log Likelihood
 
 The example is structured as several separate CMake configured projects.
 Globally relevant files and directories are described here, for further details 
-see the README.rst within the directories.
+see the README.rst in https://bitbucket.org/simoncblyth/intro_to_cuda/src/default/recon/
 
 itc.bash
     top level control bash script
