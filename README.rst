@@ -95,6 +95,20 @@ upload_to_device_vector_with_host_vector_strided.cu
 Extended Example : Minuit2 Fitting of GPU evaluated Log Likelihood
 ----------------------------------------------------------------------------------
 
+
+This extended example demonstrates:
+
+1.  how to structure a project combining ordinary gcc/clang compiled code 
+    with an nvcc compiled library of GPU code,  using Recon.hh as the bridging header
+
+2. GPU code development using focused header only implementations, 
+   which can all be individually tested : nvcc is not a very “friendly” compiler so 
+   this approach is the most effective one 
+     
+3. modern CMake best practice target export/import which allows simple CMakeLists.txt
+   configuration and easy integration across projects and with externals like Minuit2 
+
+
 The example is structured as several separate CMake configured projects.
 Globally relevant files and directories are described here, for further details 
 see the README.rst in https://bitbucket.org/simoncblyth/intro_to_cuda/src/default/recon/
@@ -124,8 +138,6 @@ useIMinuit2
 
 fitRecon
     brings together Minuit2 fitter with libRecon NLL on GPU  
-
-
 
 
 GPU Intro
