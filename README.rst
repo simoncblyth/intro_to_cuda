@@ -162,20 +162,8 @@ Really Fast Introduction to CUDA and CUDA C, Dale Southard, NVIDIA
 
 
 
-
-Thrust
-----------
-
-* http://on-demand.gputechconf.com/gtc/2012/presentations/S0602-Intro-to-Thrust-Parallel-Algorithms-Library.pdf
-
-  Including rainfall worked example, that uses struct-of-arrays (not array-of-structs), which get
-  tied together using tuples and zip iterators.
-
-
-Some more advanced slides on Thrust:
-
-* http://outreach.sbel.wisc.edu/Workshops/GPUworkshop/2012-polimi/presentation-day4.pdf
-
+CUDA Q&A
+-----------
 
 cudaMalloc : why void** ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -188,7 +176,6 @@ cudaMalloc : why void** ?
     assert(ptr != 0);
     // ptr now points to a segment of device memory
 
-
 Thrust API Documentation
 --------------------------
 
@@ -197,8 +184,15 @@ Thrust API Documentation
 
 
 
-Most Thrust Intros
+Thrust Introductions
 --------------------
+
+
+* http://on-demand.gputechconf.com/gtc/2012/presentations/S0602-Intro-to-Thrust-Parallel-Algorithms-Library.pdf
+
+  Including rainfall worked example, that uses struct-of-arrays (not array-of-structs), which get
+  tied together using tuples and zip iterators.
+
 
 * http://on-demand.gputechconf.com/gtc/2010/presentations/S12219-High-Productivity-CUDA-Development-Thrust-Template-Library.pdf
 
@@ -231,6 +225,36 @@ Advanced CUDA References
 
 Advanced Thrust References
 ---------------------------
+
+Best Advanced Slides (224 pages from Dan Negrut)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* http://outreach.sbel.wisc.edu/Workshops/GPUworkshop/2012-polimi/presentation-day4.pdf
+
+  * thrust::tie for unpacking tuples 
+  * ~60 slides on thrust
+  * ~40 slides on cublas
+  * cusp, cusparse, cufft 
+
+  * slide 130 : Focus on the operands: what you are left with once you get rid of the math
+
+    * (where the data is coming from and where it is going to dominates performance)
+
+  * slide 131 : Why you shouldn’t probably worry about math
+
+    * One global memory transaction requires 400-600 cycles
+    * Math operations (1.3 architecture, C1060):
+
+      * 4 clock cycles for an integer or single-precision floating-point arithmetic instruction
+      * 16 clock cycles for a single-precision floating-point transcendental instruction
+      * 2.0 architecture is even better
+   
+  * slide 136 : nvvp (NVIDIA visual profiler : visualize CPU and GPU activity)  
+  * slide 137 : stencil example 
+
+
+Other Advanced Slides
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 * http://www.mariomulansky.de/data/uploads/cuda_thrust.pdf
 

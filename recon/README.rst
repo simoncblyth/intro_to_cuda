@@ -36,10 +36,36 @@ To install externals::
     itc-        # precursor function defines others such as itc-info, ibcm- iminuit2-
 
     ibcm-
-    ibmc--      # downloads and installs BCM (Boost CMake Modules)
+    ibcm--      # downloads and installs BCM (Boost CMake Modules)
 
     iminuit2-
     iminuit2--  # downloads and installs Minuit2 
+
+
+The above installs can now be done with one command::
+
+    itc-
+    itc-externals-install
+
+
+To control the directory where the install is done set the *ITC_BASE* envvar::
+
+    epsilon:recon blyth$ type itc-base       ## introspecting the function
+    itc-base is a function
+    itc-base () 
+    { 
+        echo ${ITC_BASE:-/tmp/$USER}
+    }
+
+For example::
+
+    sudo mkdir /usr/local/intro_to_cuda
+    sudo chown blyth:staff /usr/local/intro_to_cuda
+
+The add a line to *~/.bash_profile*::
+
+    export ITC_BASE=/usr/local
+
 
 Build libRecon::
 
@@ -142,5 +168,15 @@ Recon.hh
 ReconTest.cc
     minimal use of libRecon : scanning the NLL  
 
+
+Enhancement Ideas
+-------------------
+
+Provide a way to fit multiple events. 
+
+* using higher dimensional NumPy time arrays ?
+* implement way to update just the times, possibly with `thrust::copy`
+
+ 
 
 

@@ -36,13 +36,17 @@ EOU
 }
 
 #itc-base(){    echo ${LOCAL_BASE:-/usr/local} ; }
-itc-base(){    echo /tmp/$USER ; }
+itc-base(){    echo ${ITC_BASE:-/tmp/$USER} ; }
 itc-prefix(){  echo $(itc-base)/intro_to_cuda ; }
 
 itc-info(){ cat << EOI
 
+
    itc-home   : $(itc-home)
+
    itc-base   : $(itc-base)
+   ITC_BASE   : $ITC_BASE 
+
    itc-prefix : $(itc-prefix)
 
 EOI
@@ -58,8 +62,22 @@ itc-banner()
 
 itc-externals(){  cat << EOX
 ibcm
+iminuit2
 EOX
 }
+
+itc-externals-install()
+{
+   itc-info
+
+   local name
+   itc-externals | while read name ; do 
+      echo $FUNCNAME : $name 
+      ${name}-
+      ${name}--
+   done 
+}
+
 
 
 itc-bdir()
