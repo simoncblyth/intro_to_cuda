@@ -1,4 +1,4 @@
-// nvcc rng_states.cu && ./a.out && rm a.out 
+// nvcc rng_states.cu && ./a.out && rm a.out && python -c "import numpy as np ; print(np.load('/tmp/rng.npy'))"
 
 /**
 rng_states.cu
