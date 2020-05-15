@@ -28,6 +28,14 @@ Start by cloning the repository to a machine with an NVIDIA GPU::
     which git # Git is required
     git clone https://bitbucket.org/simoncblyth/intro_to_cuda
 
+Cloning from an alternative git url is more convenient when 
+pushing to the bitbucket as ssh keys can be used to avoid the need 
+to enter passwords::
+
+    git clone git@bitbucket.org:simoncblyth/intro_to_cuda.git
+
+
+
 Below commands compile and run hello.cu::
 
     delta:~ blyth$ cd intro_to_cuda
