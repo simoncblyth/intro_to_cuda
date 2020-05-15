@@ -25,8 +25,8 @@ of using CUDA and Thrust.
 
 Start by cloning the repository to a machine with an NVIDIA GPU::
 
-    which hg # Mercurial is required
-    hg clone https://bitbucket.org/simoncblyth/intro_to_cuda
+    which git # Git is required
+    git clone https://bitbucket.org/simoncblyth/intro_to_cuda
 
 Below commands compile and run hello.cu::
 
