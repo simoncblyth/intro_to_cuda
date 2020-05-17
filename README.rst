@@ -310,4 +310,15 @@ Alternatives to Thrust
 
 
 
+Shared Memory : Bank Conflicts 
+----------------------------------
+
+* sometimes need to pad shared memory structures to 
+  avoid serialization of shared memory access (within a warp of 32 threads)
+
+* https://www.youtube.com/watch?v=CZgM3DEBplE
+
+
+
+
 
