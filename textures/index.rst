@@ -10,6 +10,27 @@ References
 
 * http://on-demand.gputechconf.com/gtc-express/2011/presentations/texture_webinar_aug_2011.pdf
 
+* https://docs.nvidia.com/cuda/cuda-c-programming-guide/#texture-and-surface-memory
+
+* https://developer.nvidia.com/blog/cuda-pro-tip-kepler-texture-objects-improve-performance-and-flexibility/
+
+
+
+cudaTextureDesc cudaTextureObject_t cudaCreateTextureObject cudaDestroyTextureObject
+---------------------------------------------------------------------------------------
+
+
+* http://turing.une.edu.au/~cosc330/lectures/lecture_19/examples/simpleTexture.cu
+
+
+SIMGStandaaloneTest
+-----------------------
+
+* ~/opticks/sysrap/tests/SIMGStandaloneTest.sh
+* ~/opticks/sysrap/tests/SIMGStandaloneTest.cc
+
+
+
 
 Opticks texture tests using OptiX
 -----------------------------------
