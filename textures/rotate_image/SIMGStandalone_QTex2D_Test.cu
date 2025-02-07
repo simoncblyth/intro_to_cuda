@@ -64,41 +64,78 @@ __global__ void transformKernel(uchar4* output, cudaTextureObject_t texObj, int 
 
 
 
-
-int main(int argc, char** argv)
+template<typename T>
+struct QTex2D
 {
-    const char* ipath = argc > 1 ? argv[1] : "/tmp/i.png" ; 
-    const char* opath = argc > 2 ? argv[2] : "/tmp/o.png" ; 
+    size_t       width ; 
+    size_t       height ; 
+    const void*  src ;
 
-    int desired_channels = 4 ;  
-    // hmm *desired_channels* does not change channels, the input image must be 4-channel 
-    // (png are often 4-channel, jpg are 3 channel) 
-
-    SIMG img(ipath, desired_channels); 
-    std::cout << img.desc() << std::endl ; 
-    assert( img.channels == 4 ); 
+    cudaArray*   cuArray ; 
+    cudaChannelFormatDesc channelDesc ;
+	cudaTextureObject_t texObj ;
 
 
+    QTex2D( size_t width, size_t height, const void* src );
+    virtual ~QTex2D();  
 
-    cudaChannelFormatDesc channelDesc = cudaCreateChannelDesc<uchar4>();
+    void init(); 
+    void createArray(); 
+    void uploadToArray(); 
+    void createTextureObject(); 
+};
 
-    cudaArray *cuArray;
-    cudaMallocArray(&cuArray, &channelDesc, img.width, img.height );
+
+template<typename T>
+QTex2D<T>::QTex2D(size_t width_, size_t height_ , const void* src_)
+    :
+    width(width_),
+    height(height_),
+    src(src_),
+    cuArray(nullptr),
+    channelDesc(cudaCreateChannelDesc<T>()),
+    texObj(0)
+{
+    init(); 
+}
+
+template<typename T>
+QTex2D<T>::~QTex2D()
+{
+	cudaDestroyTextureObject(texObj);
+	cudaFreeArray(cuArray);
+}
+
+template<typename T>
+void QTex2D<T>::init()
+{
+    createArray(); 
+    uploadToArray(); 
+    createTextureObject(); 
+}
+
+template<typename T>
+void QTex2D<T>::createArray()
+{
+    cudaMallocArray(&cuArray, &channelDesc, width, height );
     cudaCheckErrors("cudaMallocArray");
+}
 
-    {
-        cudaArray_t dst = cuArray ; 
-        size_t wOffset = 0 ; 
-        size_t hOffset = 0 ; 
-        const void* src = img.data ;  
-        size_t count = img.width*img.height*4*sizeof(unsigned char) ; 
-        cudaMemcpyKind kind = cudaMemcpyHostToDevice ; 
+template<typename T>
+void QTex2D<T>::uploadToArray()
+{
+    cudaArray_t dst = cuArray ; 
+    size_t wOffset = 0 ; 
+    size_t hOffset = 0 ; 
+    size_t count = width*height*sizeof(T) ; 
+    cudaMemcpyKind kind = cudaMemcpyHostToDevice ; 
+    cudaMemcpyToArray(dst, wOffset, hOffset, src, count, kind );
+    cudaCheckErrors("cudaMemcpyToArray");
+}
 
-        cudaMemcpyToArray(dst, wOffset, hOffset, src, count, kind );
-
-        cudaCheckErrors("cudaMemcpyToArray");
-    }
-
+template<typename T>
+void QTex2D<T>::createTextureObject()
+{
 	struct cudaResourceDesc resDesc;
 	memset(&resDesc, 0, sizeof(resDesc));
 	resDesc.resType = cudaResourceTypeArray;
@@ -117,11 +154,27 @@ int main(int argc, char** argv)
 	texDesc.normalizedCoords = 1 ;            // addressing into the texture with floats in range 0:1
 
 	// Create texture object
-	cudaTextureObject_t texObj = 0;
 	cudaCreateTextureObject(&texObj, &resDesc, &texDesc, NULL);
+}
 
 
 
+
+
+int main(int argc, char** argv)
+{
+    const char* ipath = argc > 1 ? argv[1] : "/tmp/i.png" ; 
+    const char* opath = argc > 2 ? argv[2] : "/tmp/o.png" ; 
+
+    int desired_channels = 4 ;  
+    // hmm *desired_channels* does not change channels, the input image must be 4-channel 
+    // (png are often 4-channel, jpg are 3 channel) 
+
+    SIMG img(ipath, desired_channels); 
+    std::cout << img.desc() << std::endl ; 
+    assert( img.channels == 4 ); 
+
+    QTex2D<uchar4> qtex(img.width, img.height, img.data); 
 
 
 	// Allocate result of transformation in device memory
@@ -134,11 +187,10 @@ int main(int argc, char** argv)
     float theta = 1.f ; 
 
 	//colorKernel<<<dimGrid, dimBlock>>>(d_output, texObj, img.width, img.height, theta );
-	transformKernel<<<dimGrid, dimBlock>>>(d_output, texObj, img.width, img.height, theta );
+	transformKernel<<<dimGrid, dimBlock>>>(d_output, qtex.texObj, img.width, img.height, theta );
     cudaDeviceSynchronize();      
     cudaCheckErrors("cudaDeviceSynchronize"); 
     // Fatal error: cudaDeviceSynchronize (linear filtering not supported for non-float type at SIMGStandaloneTest.cu:123)
-
 
     uchar4* output = new uchar4[img.width*img.height] ; 
     cudaMemcpy(output, d_output, img.width*img.height*sizeof(uchar4), cudaMemcpyDeviceToHost);     
@@ -149,9 +201,6 @@ int main(int argc, char** argv)
     img2.writePNG(opath); 
 
     cudaDeviceSynchronize();  
-
-	cudaDestroyTextureObject(texObj);
-	cudaFreeArray(cuArray);
 
     delete[] output ; 
 	cudaFree(d_output);

@@ -1,6 +1,9 @@
 #!/bin/bash -l 
 
-name=SIMGStandaloneTest 
+msg="=== $BASH_SOURCE :"
+#name=SIMGStandaloneTest 
+name=SIMGStandalone_QTex2D_Test
+
 
 # attempt to suppress "was set but never used" warnings
 # from complilation of stb_image.h using the below causing error 
@@ -8,6 +11,7 @@ name=SIMGStandaloneTest
 
 CUDA_PREFIX=${CUDA_PREFIX:-/usr/local/cuda}
 
+echo $msg name $name
 nvcc $name.cu -lstdc++ -std=c++11  -I. -I${CUDA_PREFIX}/include -L${CUDA_PREFIX}/lib -lcudart -o /tmp/$name 
 [ $? -ne 0 ] && echo compile FAIL && exit 1
 

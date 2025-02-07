@@ -48,18 +48,10 @@ Other references in textures:
 * https://docs.nvidia.com/cuda/cuda-c-programming-guide/#texture-and-surface-memory
 
 
-
-
-This examples was initially developed in an Opticks/sysrap test:: 
+This example was initially developed in an Opticks/sysrap test:: 
 
    ~/opticks/sysrap/tests/SIMGStandaloneTest.sh  
    ~/opticks/sysrap/tests/SIMGStandaloneTest.cc
-
-
-
-
-
-
 
 
 

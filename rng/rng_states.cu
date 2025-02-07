@@ -1,5 +1,4 @@
-// nvcc rng_states.cu && ./a.out && rm a.out && python -c "import numpy as np ; print(np.load('/tmp/rng.npy'))"
-
+// ./rng_states.sh 
 /**
 rng_states.cu
 ===============
@@ -23,19 +22,19 @@ Opticks use of cuRAND : is not very reusable
 ------------------------------------------------
 
 Opticks does separate CUDA launches to initialize cuRAND state:
-
-https://bitbucket.org/simoncblyth/opticks/src/tip/cudarap/
-https://bitbucket.org/simoncblyth/opticks/src/tip/cudarap/cuRANDWrapper.hh
-https://bitbucket.org/simoncblyth/opticks/src/tip/cudarap/cuRANDWrapper.cc
-https://bitbucket.org/simoncblyth/opticks/src/tip/cudarap/tests/cuRANDWrapperTest.cc
+  
+    cudarap/cuRANDWrapper.hh 
+    cudarap/cuRANDWrapper.cc
+    cudarap/tests/cuRANDWrapperTest.cc
 
 Loading the RNG state into OptiX context:
 
-https://bitbucket.org/simoncblyth/opticks/src/tip/optixrap/ORng.cc
+    optixrap/ORng.cc
       
 Other relevant Opticks code including some use of cuRAND from Thrust
-(demo code, so it does the initialization every time) 
-     https://bitbucket.org/simoncblyth/opticks/src/tip/thrustrap/tests/
+(demo code, so it does the initialization every time):
+
+    thrustrap/tests/
 
 
 **/
@@ -51,7 +50,7 @@ Other relevant Opticks code including some use of cuRAND from Thrust
 
 
 __global__
-void RNG_init( int seed, int offset, curandState* rng_states )
+void RNG_init( unsigned long long seed, unsigned long long offset, curandState* rng_states )
 {
     int id = blockIdx.x*blockDim.x + threadIdx.x;
     curand_init(seed, id , offset, &rng_states[id]);
@@ -63,13 +62,13 @@ void RNG_gen( float* pa, curandState* ps )
     int id = blockIdx.x*blockDim.x + threadIdx.x;
     curandState rng = ps[id];  
     pa[id] = curand_uniform(&rng); 
-    ps[id] = rng;     
+    ps[id] = rng;    // <--- input_output curandState, heavy ?   
 }
 
 struct RNG
 {
-    int seed ; 
-    int offset ; 
+    unsigned long long seed ; 
+    unsigned long long offset ; 
     int num ; 
    
     thrust::host_vector<curandState>   hs ; 
