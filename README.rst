@@ -9,7 +9,7 @@ CUDA Documentation/Download
 See Also
 ----------
 
-* https://bitbucket.org/simoncblyth/intro_to_numpy/
+* https://github.com/simoncblyth/intro_to_numpy/
 
   NumPy and the NPY file format are exceedingly useful for transporting/persisting 
   GPU inputs and outputs, making learning NumPy go together naturally with learning CUDA and Thrust 
@@ -21,18 +21,18 @@ Hello World Examples
 This repository contains a few very simple examples
 of using CUDA and Thrust.
 
-* https://bitbucket.org/simoncblyth/intro_to_cuda/src/
+* https://github.com/simoncblyth/intro_to_cuda/
 
 Start by cloning the repository to a machine with an NVIDIA GPU::
 
     which git # Git is required
-    git clone https://bitbucket.org/simoncblyth/intro_to_cuda
+    git clone https://github.com/simoncblyth/intro_to_cuda
 
 Cloning from an alternative git url is more convenient when 
-pushing to the bitbucket as ssh keys can be used to avoid the need 
+pushing to github as ssh keys can be used to avoid the need 
 to enter passwords::
 
-    git clone git@bitbucket.org:simoncblyth/intro_to_cuda.git
+    git clone git@github.com:simoncblyth/intro_to_cuda.git
 
 
 
@@ -119,7 +119,7 @@ This extended example demonstrates:
 
 The example is structured as several separate CMake configured projects.
 Globally relevant files and directories are described here, for further details 
-see the README.rst in https://bitbucket.org/simoncblyth/intro_to_cuda/src/default/recon/
+see the README.rst in https://github.com/simoncblyth/intro_to_cuda/tree/master/recon/
 
 itc.bash
     top level control bash script

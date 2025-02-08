@@ -11,12 +11,12 @@ PDF model of a normal distribution around geometric time.
 The positions on the sphere, input times and initial parameter 
 values and labels are loaded from files written by  
 
-* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/recon.py 
+* https://github.com/simoncblyth/intro_to_numpy/tree/master/recon.py 
 
 To run `recon.py` you will need to install at least NumPy and preferably 
 also SciPy, IPython and MatPlotLib as instructed at 
 
-* https://bitbucket.org/simoncblyth/intro_to_numpy/src/default/
+* https://github.com/simoncblyth/intro_to_numpy/
 
 
 Installation and Building 
@@ -25,7 +25,7 @@ Installation and Building
 ::
 
     cd
-    hg clone http://bitbucket.org/simoncblyth/intro_to_cuda 
+    git clone http://github.com/simoncblyth/intro_to_cuda 
 
 Add the following line to your .bash_profile or .bashrc::
 
